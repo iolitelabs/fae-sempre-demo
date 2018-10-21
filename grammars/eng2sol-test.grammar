@@ -1,0 +1,24 @@
+(rule $Type (uint256) (ConstantFn "uint256"))
+(rule $Type (bool) (ConstantFn "bool"))
+
+(rule $Name ($TOKEN) (IdentityFn))
+(rule $Contract (contract $Name) (MapFn "contract $1 { [[fields]] [[functions]] }"))
+(rule $Contract ($Contract with $Field) (MapJoinFn fields forward preserve))
+(rule $Contract ($Contract with $Function) (MapJoinFn functions forward preserve))
+
+(rule $Field (field $Name of type $Type) (MapFn "$2 [[modifiers]] $1;"))
+
+(rule $Function (function $Name) (MapFn "function $1([[arg]]) [[modifiers]] [[returnval]] { [[code]] }"))
+(rule $Function ($Function with args $Args) (MapJoinFn arg forward))
+(rule $Function ($Function that returns $Type) (MapJoinFn returnval forward prefix "returns "))
+(rule $Function ($Function with body $Code) (MapJoinFn code forward))
+(rule $Code ($PHRASE) (IdentityFn))
+
+(rule $Args ($Arg) (IdentityFn))
+(rule $Args ($Args and $Arg) (MapFn "$1, $2"))
+(rule $Arg ($Name of type $Type) (MapFn "$2 $1"))
+
+(rule $ROOT ($Contract) (MapFinalizeFn formatc))
+
+
+# (induce (storage contract MyName of type uint256) (contract MyName with field storedData of type uint256 with function set with args x of type uint256 with function get that returns uint256))

@@ -1,0 +1,19 @@
+`Business Enrollment  Agreement`
+
+    1. This agreement is between `Colu Technologies Ltd.`, `CP 515151744` (hereinafter "Colu"), and you ("the Business") to enroll the Business to the local economy (hereinafter "the Economy").
+    2. Enrolling and leaving the Economy is free of any kind of payment from the Business.
+    3. In this framework, the members of the Economy (hereinafter: the "Users") will be able to purchase services and products from the Business through the digital wallet (Hereinafter "the app") by using the local currency.
+    4. Local currency value is equivalent to New Israeli Shekels (`1 local currency =` 1 `NIS`).
+    5. The Business will appear in the in-app business database. Also, Colu will periodically publish and advertise the Business through social and other digital media channels.
+    6. As part of the use of the application, users will be able to top up the digital wallet with local currency.
+    7. The request for conversion of the local currency into shekels (full or partial) shall be made according to the demand of the Business and the transfer of the money to the Business bank account will occur `every 15 days`, on predetermined dates (these dates may vary in accordance to the coordination with the Business).
+    8. If the Business chooses not to convert the local currency into NIS, the local currencies will be accumulated in its business wallet until a request for a conversion.
+    9. Conversion of the local currency into shekels will be subject to a Know Your Customer process done by Colu and / or its representatives.
+    10. A month from the date of joining, the Business will be charged a `conversion fee of 0.5%` of the amount (in local currencies) converted into shekels, for the services provided by Colu.
+    11. The monthly conversion fee will be collected in the local currency and deducted from the Business's business wallet.
+    12. The merchant undertakes not to use the local currency for illegal purposes and sell the local currency to others for money.
+    13. The application is in beta and therefore may have certain changes, improvements and bugs.
+    14. The collaboration and the participation of the business in the Economy are not limited in time. Either party, the Business or the Colu Company, may notify the termination of the collaboration upon notice of 7 business days. In such a case and if there are receivables between the parties, the funds will be transferred within two weeks of the end of the collaboration.
+    15. In the event of a conflict between the terms of use and the terms of this document, the terms of use shall prevail. 
+
+By clicking Continue, I confirm that I have read and approved the content of the enrollment agreement.

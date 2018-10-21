@@ -1,0 +1,12 @@
+version: '2'
+
+services:
+  fae:
+    image: docker.io/iolitelabs/fae.sempre:3.0
+    volumes:
+      - ./examples:/opt/examples
+      - ./grammars/contract.grammar:/opt/user.grammar
+      - ./entry-point.sh:/opt/entry-point.sh
+    entrypoint:
+      - /bin/bash
+      - /opt/entry-point.sh

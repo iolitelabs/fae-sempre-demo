@@ -1,0 +1,87 @@
+(rule $ROOT ($Contract) (MapFinalizeFn formatc))
+(rule $Contract (Business Enrollment Agreement)
+                (MapFn
+                "contract BusinessEnrolmentAgreement { 
+                     string public contractor = \"[[companyname]]\";
+                     string public noRegistraction = \"[[reg_number]]\";
+                     string public contractorCurrency = \"[[currency]]\";
+                     string public conversionRate = [[conversion_rate]];
+
+                     uint256 public requestPeriod = [[requestPeriod]];
+                     uint256 public lastRequest = 0;
+                     uint256 public sumOfLastRequest = 0;
+
+                     bool public isKYC = false;
+
+                     uint256 public conversionAccuracy = 100;
+                     uint256 public conversionFee = conversionAccuracy * [[conversion_fee]];
+
+                     uint256 public value = 0;
+                          
+                     address public client;
+
+                     event FundTransfer(uin256 amount, uint256 rate);
+                     modifier onlyClient() {
+                         require(msg.sender == client);
+                         _;
+                     }
+
+                     constructor(address _client) public {
+                         require(_client != address(0));
+                         client = _client;
+                     }
+                     
+                     function() onliClient public payable
+                     {
+                         emit FundTransfer(msg.value, conversionRate);
+                     }
+
+                     function doneKYC() onlyOwner public {
+                         isKYC = true;
+                     }
+
+                     function conversionRequest() onlyClient public {
+                         require((now - lastRequest) > requestPeriod);
+
+                         lastRequest = now;
+                         sumOfLastRequest = address(this).balance;
+                     }
+
+                     function applyFullRequest() onlyOwner public {
+                         require(isKYC);
+                         require(sumOfLastRequest > 0);
+                         require(address(this).balance >= sumOfLastRequest);
+
+                         uint256 amount = sumOfLastRequest.mul(conversionRate);
+                         uint256 fee = amount.mul(conversionFee).div(conversionAccuracy).div(100);
+
+                         value = value.add(amount.sub(fee));
+
+                         owner.transfer(sumOfLastRequest);
+                         sumOfLastRequest = 0;
+                     }
+
+                     function terminate() onlyOwner public {
+                         client.transfer(address(this).balance);
+                         client = address(0);
+                     }                        
+                 }"))
+
+
+(rule $CompanyName ($PHRASE Ltd .) (MapFn "$1 Ltd."))
+(rule $RegNum (CP $TOKEN) (MapFn "CP $1"))
+(rule $Period (every $TOKEN days) (MapFn "$1 days"))
+(rule $Fee (conversion fee of $TOKEN %) (IdentityFn))
+(rule $ConversionRate ($TOKEN local currency =) (IdentityFn))
+(rule $Currency (NIS) (ConstantFn "NIS"))
+(rule $Currency (USD) (ConstantFn "USD"))
+(rule $Currency (EUR) (ConstantFn "EUR"))
+
+(rule $Contract ($Contract $CompanyName) (MapJoinFn companyname forward))
+(rule $Contract ($Contract $RegNum) (MapJoinFn reg_number forward))
+(rule $Contract ($Contract $Period) (MapJoinFn requestPeriod forward))
+(rule $Contract ($Contract $Fee) (MapJoinFn conversion_fee forward))
+(rule $Contract ($Contract $ConversionRate) (MapJoinFn conversion_rate forward))
+(rule $Contract ($Contract $Currency) (MapJoinFn currency forward))
+
+# (rule $ConversionFee (the Business will be charged a conversion fee of $TOKEN))
